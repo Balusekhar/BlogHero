@@ -5,13 +5,18 @@ function UserRequest({ handleGenerate }) {
   const [numberOfWords, setNumberOfWords] = useState("");
 
   const handleSubmit = async () => {
-    handleGenerate(topic, numberOfWords);
+    // Validate input
+    if (!topic.trim() || !numberOfWords) {
+      alert("Please enter a valid topic and number of words.");
+      return;
+    }
+    handleGenerate(topic, parseInt(numberOfWords, 10));
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-4 h-full">
+    <div className="bg-white rounded-lg shadow-md p-4 flex-1 flex flex-col space-y-4">
       <h2 className="text-2xl font-bold mb-4">Generate Blog Post</h2>
-      <div className="mb-4">
+      <div>
         <label
           htmlFor="topic"
           className="block text-sm font-medium text-gray-700"
@@ -27,7 +32,7 @@ function UserRequest({ handleGenerate }) {
           placeholder="Enter the topic"
         />
       </div>
-      <div className="mb-4">
+      <div>
         <label
           htmlFor="numberOfWords"
           className="block text-sm font-medium text-gray-700"

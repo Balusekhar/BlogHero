@@ -31,17 +31,18 @@ router.post("/", async (req, res) => {
     generationConfig,
   });
 
-  const prompt = `Generate a blog post for a topic: ${topic} with an engaging tone. The post should be around ${numberOfWords} words. Give the output in Rich Text format and the output should contain only a SEO-friendly title and the content`;
+  const prompt = `Generate a blog post for a topic: ${topic} with an engaging tone. The post should be around ${numberOfWords} words. Give the output in Rich Text format.`;
 
   try {
     const result = await chatSession.sendMessage(prompt);
-    console.log(result)
-    const textResponse = result.response.text();
-    res.status(200).json(textResponse);
+    console.log(result);
+    const blog = result.response.text();
+    console.log(blog);
+    res.status(200).json({ blog });
   } catch (error) {
     console.error("Error generating content:", error);
     res.status(500).json({ error: "Error generating content" });
   }
-});   
+});
 
 module.exports = router;
